@@ -354,7 +354,7 @@ MonoBehaviour:
   _obstacleLayer:
     serializedVersion: 2
     m_Bits: 8
-  _moveSpeed: 1000
+  _moveSpeed: 4
 --- !u!58 &977346672
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -391,7 +391,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &1596526260 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7845041215129860707, guid: e613048adf10ff24290860471836186d, type: 3}

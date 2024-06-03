@@ -7,15 +7,14 @@ using UnityEngine;
 public class BallBehaviour : MonoBehaviour
 {
     [SerializeField] private Transform _arrowTransform;
-
     [SerializeField] public LayerMask _obstacleLayer;
-    
     [SerializeField]private float _moveSpeed = 15f;
     
-    private Coroutine moveCoroutine;
+    private float _rayDistance = 0.2f;
     private Vector3 _moveDirection;
     private Rigidbody2D _rb;
     private bool _isMove = false;
+    private readonly float[] _angles = { 0f, 15f, -15f, 30f, -30f, 60f, -60f };
 
     private void Start()
     {
@@ -38,36 +37,34 @@ public class BallBehaviour : MonoBehaviour
     {
         if(_isMove == true)
         {
-        Vector3 direction = (_arrowTransform.position - transform.position).normalized;
-        _rb.velocity = _moveDirection * _moveSpeed * Time.deltaTime;
+            foreach (float angle in _angles)
+            {
+                if (CheckCollision(transform.position, RotateVector(_moveDirection, angle)))
+                {
+                    _rb.velocity = Vector2.zero;
+                    _isMove = false;
+                    return;
+                }
+            }
+            _rb.velocity = _moveDirection * _moveSpeed;
+            
         }
+        
     }
-
-    private void MoveToPointer()
+    
+    private bool CheckCollision(Vector2 origin, Vector2 direction)
     {
-        // Направление движения в сторону стрелки
-        Vector2 direction = _arrowTransform.up; // Вектор up стрелки указывает направление
-
-       
-
-        // Проверяем наличие препятствий на пути
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, _moveSpeed * Time.deltaTime, _obstacleLayer);
-        if (hit.collider != null)
-        {
-            // Если обнаружено препятствие, перемещаем объект к точке столкновения
-            _rb.MovePosition(hit.point);
-            _isMove = false;
-            // Выводим информацию о столкновении в консоль
-            Debug.Log("Столкновение с: " + hit.collider.name + " в точке: " + hit.point);
-        }
-
-        _isMove = true;
-        // Вычисляем новую позицию объекта
-        Vector2 newPosition = (Vector2)transform.position + direction * _moveSpeed * Time.deltaTime;
-
-        // Перемещаем объект
-        _rb.MovePosition(newPosition);
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction, _rayDistance, _obstacleLayer);
+        Debug.DrawRay(origin, direction * _rayDistance, Color.red);
+        return hit.collider != null;
     }
-
+    private Vector2 RotateVector(Vector2 vector, float angle)
+    {
+        float radian = angle * Mathf.Deg2Rad;
+        float cos = Mathf.Cos(radian);
+        float sin = Mathf.Sin(radian);
+        return new Vector2(vector.x * cos - vector.y * sin, vector.x * sin + vector.y * cos);
+    }
+    
    
 }
