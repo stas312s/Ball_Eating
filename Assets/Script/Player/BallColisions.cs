@@ -10,13 +10,19 @@ public class BallColisions : MonoBehaviour
     [SerializeField]private float _moveSpeed = 15f;
     
     private Vector3 _moveDirection;
+    private Vector3 _currentPosition;
+    
     private bool _isMove = false;
+    
     private Rigidbody2D _rb;
+    
     private ArrowRotation _arrowRotationScript;
+    
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _arrowRotationScript = _arrowTransform.GetComponent<ArrowRotation>();
+        _currentPosition = transform.position;
     }
 
     private void Update()
@@ -41,7 +47,7 @@ public class BallColisions : MonoBehaviour
         }
 
     }
-
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if( collision.gameObject.layer == LayerMask.NameToLayer("Barrier"))
@@ -50,7 +56,14 @@ public class BallColisions : MonoBehaviour
             _isMove = false;
             
             Vector2 collisionPoint = collision.GetContact(0).point;
-            _arrowRotationScript.OnBallCollision(collisionPoint);
+            var angle = GetAngle(_currentPosition, collision.collider.transform.position);
+            _currentPosition = collision.collider.transform.position;
+            _arrowRotationScript.OnBallCollision(collisionPoint, angle);
         }
+    }
+    
+    private float GetAngle(Vector2 from, Vector2 to)
+    {
+        return Vector2.SignedAngle(from, to);
     }
 }
