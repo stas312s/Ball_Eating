@@ -9,8 +9,10 @@ public class BallBehaviour : MonoBehaviour
     [SerializeField] private Transform _arrowTransform;
     [SerializeField] public LayerMask _obstacleLayer;
     [SerializeField]private float _moveSpeed = 15f;
+    [SerializeField] private ArrowRotation _arrowRotation;
     
-    private float _rayDistance = 0.2f;
+    
+    private float _rayDistance = 0.1f;
     private Vector3 _moveDirection;
     private Rigidbody2D _rb;
     private bool _isMove = false;
@@ -30,6 +32,7 @@ public class BallBehaviour : MonoBehaviour
         }
         MoveBall();
         
+        
     }
    
 
@@ -43,6 +46,7 @@ public class BallBehaviour : MonoBehaviour
                 {
                     _rb.velocity = Vector2.zero;
                     _isMove = false;
+                    //_arrowRotation.OnCollision(_moveDirection);
                     return;
                 }
             }
