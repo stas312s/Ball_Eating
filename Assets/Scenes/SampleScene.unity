@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _targetObject: {fileID: 977346670}
   _maxDistance: 0.3
-  _rotationSpeed: 100
+  _rotationSpeed: 150
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,12 +288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ab4cbd96a05ff499ece57563d6777d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arrowTransform: {fileID: 236205107}
-  _obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _moveSpeed: 4
-  _arrowRotation: {fileID: 236205108}
 --- !u!58 &977346672
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -345,6 +339,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _arrowTransform: {fileID: 236205107}
   _moveSpeed: 4
+--- !u!114 &977346677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977346668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dce9787adb273b48a98f90477e2fef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 200942551911769403, guid: 204c237cea4deaa4c95eb13b7f89c41f, type: 3}
+  _squareSize: 3.3
+--- !u!114 &977346678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977346668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f87410a117e2d341a3d415d365dfd74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _arrow: {fileID: 236205106}
 --- !u!1001 &4348548051023712929
 PrefabInstance:
   m_ObjectHideFlags: 0
