@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 [RequireComponent(typeof(Rigidbody2D))]
 
 public class BallColisions : MonoBehaviour
@@ -27,7 +29,7 @@ public class BallColisions : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && _rb.velocity == Vector2.zero)
         {
             _isMove = true;
             _moveDirection = (_arrowTransform.position - transform.position).normalized;
@@ -60,6 +62,13 @@ public class BallColisions : MonoBehaviour
             _currentPosition = collision.collider.transform.position;
             _arrowRotationScript.OnBallCollision(collisionPoint, angle);
         }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
     }
     
     private float GetAngle(Vector2 from, Vector2 to)

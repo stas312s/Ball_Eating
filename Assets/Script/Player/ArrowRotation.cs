@@ -19,6 +19,7 @@ public class ArrowRotation : MonoBehaviour
     void Update()
     {
         Rotation();
+        
     }
 
     private void Rotation()
@@ -56,11 +57,13 @@ public class ArrowRotation : MonoBehaviour
         transform.position = _targetObject.position + newOffset;
         transform.up = transform.position - _targetObject.position;
 
+       
+        _currentRotationAngle = Mathf.Atan2(newOffset.y, newOffset.x) * Mathf.Rad2Deg;
+
+        
+        _rotatingRight = !_rotatingRight;
+
         _angleDifference -= angle;
     }
-    
-    
-
-   
     
 }
